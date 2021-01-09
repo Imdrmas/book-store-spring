@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -15,8 +16,12 @@ public class User {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private long id;
+	
+	@Column(unique = true)
 	private String username;
+	
 	private String password;
+	
 	private boolean admin;
 
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
@@ -73,7 +78,7 @@ public class User {
 	public void setCategories(List<Category> categories) {
 		this.categories = categories;
 	}
-
+	
 	public void addCategoryToUser(Category category) {
 		if (getCategories() == null) {
 			this.categories = new ArrayList<>();

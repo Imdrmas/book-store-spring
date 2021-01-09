@@ -26,7 +26,7 @@ public class CategoryServiceImpl implements CategoryService {
 	public Category addCategoryToUser(Category category, long id) {
 		User user = userDao.findById(id).orElse(null);
 		List<Category> categories = categoryDao.findAll();
-		if (categories.size()<=1) {
+		if (categories.size()==0) {
 			category.setExpanded(true);
 		} else {
 			category.setExpanded(false);
@@ -36,10 +36,12 @@ public class CategoryServiceImpl implements CategoryService {
 	}
 
 	@Override
-	public Category editCategory(Category category, long id) {
+	public Category editCategory(Category category, long id, long idUser) {
 		Category existCategory = categoryDao.findById(id).orElse(null);
+		User user = userDao.findById(idUser).orElse(null);
 		existCategory.setName(category.getName());
-		return categoryDao.save(category);
+		user.addCategoryToUser(existCategory);
+		return categoryDao.save(existCategory);
 	}
 
 	@Override

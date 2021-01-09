@@ -29,9 +29,9 @@ public class CategoryController {
 		return categoryService.addCategoryToUser(category, id);
 	}
 	
-	@PutMapping("/editCategory/{id}")
-	Category editCategory(@RequestBody Category category, @PathVariable long id) {
-		return categoryService.editCategory(category, id);
+	@PutMapping("/editCategory/{id}/{idUser}")
+	Category editCategory(@RequestBody Category category, @PathVariable long id, @PathVariable long idUser) {
+		return categoryService.editCategory(category, id, idUser);
 	}
 	
 	@DeleteMapping("/deleteCategory/{id}")

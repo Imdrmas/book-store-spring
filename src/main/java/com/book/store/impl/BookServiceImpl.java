@@ -26,13 +26,15 @@ public class BookServiceImpl implements BookService {
 	@Override
 	public Book addBookToCategory(Book book, long id) {
 		Category category = categoryDao.findById(id).orElse(null);
+		book.setPublishDate(new Date());
 		category.addBookToCategory(book);
 		return bookDao.save(book);
 	}
 
 	@Override
-	public Book editBook(Book book, long id) {
-		Book existsBook = bookDao.findById(id).orElse(book);
+	public Book editBook(Book book, long id, long idCategory) {
+		Book existsBook = bookDao.findById(id).orElse(null);
+		Category category = categoryDao.findById(idCategory).orElse(null);
 		existsBook.setName(book.getName());
 		existsBook.setDescription(book.getDescription());
 		existsBook.setPrice(book.getPrice());
@@ -43,7 +45,8 @@ public class BookServiceImpl implements BookService {
 		existsBook.setPage(book.getPage());
 		existsBook.setWriter(book.getWriter());
 		existsBook.setPublisher(book.getPublisher());
-		return bookDao.save(book);
+		category.addBookToCategory(existsBook);
+		return bookDao.save(existsBook);
 	}
 
 	@Override

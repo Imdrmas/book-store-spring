@@ -21,7 +21,7 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public User addUser(User user) {
 		List<User> users = userDao.findAll();
-		if (users.size() <= 1) {
+		if (users.size() == 0) {
 			user.setAdmin(true);
 		} else {
 			user.setAdmin(false);

@@ -24,14 +24,14 @@ public class BookController {
 	@Autowired
 	private BookService bookService;
 	
-	@PostMapping
+	@PostMapping("/addBookToCategory/{id}")
 	Book addBookToCategory(@RequestBody Book book, @PathVariable long id) {
 		return bookService.addBookToCategory(book, id);
 	}
 	
-	@PutMapping("/editBook/{id}")
-	Book editBook(@RequestBody Book book, @PathVariable long id) {
-		return bookService.editBook(book, id);
+	@PutMapping("/editBook/{id}/{idCategory}")
+	Book editBook(@RequestBody Book book, @PathVariable long id, @PathVariable long idCategory) {
+		return bookService.editBook(book, id, idCategory);
 	}
 	
 	@DeleteMapping("/deleteBook/{id}")
